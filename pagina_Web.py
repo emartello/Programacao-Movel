@@ -2,13 +2,14 @@
 #  pip3 install flask
 #  pip3 install SQLAlchem
 #  pip3 install request
-#  pip3 install pylink
+#  apt-get install pylint
+#  LIBERAR A PORTA
 
 from flask import Flask, render_template, request, url_for, redirect, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLACHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 db = SQLAlchemy(app)
 
 
@@ -68,6 +69,4 @@ def listar():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-# como enviar o request
-# POST http://localhost:5000/cadastro?idCliente=1&numPlaca=1&medicao=77&Cadastrar=1
+    app.run(host='0.0.0.0', port=80)
