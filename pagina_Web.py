@@ -1,4 +1,10 @@
-from flask import Flask, render_template, request, url_for, redirect, request
+# Instalar dependecias
+#  pip3 install flask
+#  pip3 install SQLAlchem
+#  pip3 install request
+#  pip3 install pylink
+
+from flask import Flask, render_template, request, url_for, redirect, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -8,7 +14,6 @@ db = SQLAlchemy(app)
 
 class PlacaLoRa(db.Model):
     __tablename__ = 'placa'
-
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     idCliente = db.Column(db.Integer)
     numPlaca = db.Column(db.Integer)
@@ -37,14 +42,22 @@ def cadastrar():
 @app.route("/cadastro", methods=['POST'])
 def cadastro():
     if request.method == "POST":
+
         idCliente = request.form.get("idCliente")
         numPlaca = request.form.get("numPlaca")
         medicao = request.form.get("medicao")
+
+        if request.get_json() != None:
+            content = request.get_json()
+            idCliente = content['idCliente']
+            numPlaca = content['numPlaca']
+            medicao = content['medicao']
 
         if idCliente and numPlaca and medicao:
             p = PlacaLoRa(idCliente, numPlaca, medicao)
             db.session.add(p)
             db.session.commit()
+
     return redirect(url_for("index"))
 
 
@@ -56,5 +69,5 @@ def listar():
 
 if __name__ == '__main__':
     app.run(debug=True)
-## como enviar o request
-#POST http://localhost:5000/cadastro?idCliente=1&numPlaca=1&medicao=77&Cadastrar=1
+# como enviar o request
+# POST http://localhost:5000/cadastro?idCliente=1&numPlaca=1&medicao=77&Cadastrar=1
