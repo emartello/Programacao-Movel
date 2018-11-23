@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Chokito</title>
+    <style>
+        h1{
+            text-align: center;
+            }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
+        td, th {
+            border: 1px solid   #000000;
+            text-align: center;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pagina Cadastro</h1>
+    <hr>
+    <form action="{{ url_for('cadastro')}}" method="POST">
+        <table>
+            <tr>
+                <td>Numero Cliente</td>
+                <td>Numero Placa</td>
+                <td>Medicao</td>
+            </tr>
+            <tr>
+                <td><input type="number" name="idCliente"></td>
+                <td><input type="number" name="numPlaca"></td>
+                <td><input type="number" step="any" name="medicao"></td>
+                <!--  <td>Data e Hora</td>
+                        <td><input type="datetime-local" name="medicao_datatime"></td>-->
+            </tr>
+        </table><br>
+        <input type="submit" value="Cadastrar">
+    </form>
+
+</body>
+
+</html>
